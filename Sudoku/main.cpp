@@ -13,7 +13,8 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
+
+    srand(int(time(0)));
 
     
     cout<<"Below is the sudoku puzzle\n"<<endl;
@@ -21,6 +22,10 @@ int main(int argc, const char * argv[]) {
     boardObj->drawBoard();
     
     cout<<""<<endl;
+    
+//    for(int i = 0; i<boardObj->y.size(); i++){
+//        cout<<boardObj->y[i]<<" ";
+//    }
     
     return 0;
 }

@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 #include <vector>
+#include "NumberClass.hpp"
+
 using namespace std; 
 
 class Board{
@@ -25,7 +27,9 @@ class Board{
         void drawBoard();
         void drawVerticalLines();
         void drawHorizontalLines();
-        void generateRow():
+        void printValues();
+        void updateYValues();
+    
     
 };
 

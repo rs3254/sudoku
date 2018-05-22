@@ -18,8 +18,11 @@ Board::Board() {
     x = {1, 2,3,4,5,6,7,8,9};
     // y coordinates
     y = {1, 2,3,4,5,6,7,8,9};
+    
+    Nums * num = new Nums;
 
-  
+    x = num->generateNumsX(x);
+    y =  num->generateNumsY(y);
 }
 
 void Board::drawBoard(){
@@ -41,13 +44,22 @@ void Board::drawBoard(){
     
 }
 
+//misnomer draws horizontal lines with numbers 
 void Board::drawVerticalLines(){
+    int z = 0;
+    Nums * num = new Nums;
     for(int i = 1; i<13; i++){
         if(i%4 == 0){
             cout<<"*  ";
         }
         else{
-             cout<<"*   ";
+           
+            cout<<"* "<<y[z]<<" ";
+            z += 1;
+            
+            if(z == 9){
+                updateYValues();
+            }
         }
        
     }
@@ -74,8 +86,18 @@ void Board::drawHorizontalLines(){
 }
 
 
+void Board::updateYValues(){
+    
+    Nums * num = new Nums;
+    y = num->generateNumsY(y);
+}
+
+void Board::printValues(){
+    for(int i = 0; i<x.size(); i++){
+        cout<<x[i]<<" ";
+    }
 
 
-
+}
 
 
