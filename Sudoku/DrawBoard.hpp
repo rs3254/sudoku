@@ -30,6 +30,8 @@ class Board{
         void printValues();
         void updateYValues();
     
+        // used for testing 
+        void printNumValues();
     
 };
 

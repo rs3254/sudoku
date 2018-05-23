@@ -27,5 +27,10 @@ int main(int argc, const char * argv[]) {
 //        cout<<boardObj->y[i]<<" ";
 //    }
     
+    
+    cout<<"\n"<<endl;
+    
+    
+    
     return 0;
 }

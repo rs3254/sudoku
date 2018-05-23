@@ -22,7 +22,7 @@ Board::Board() {
     Nums * num = new Nums;
 
     x = num->generateNumsX(x);
-    y =  num->generateNumsY(y);
+    y = num->generateSuperArrY();
 }
 
 void Board::drawBoard(){
@@ -46,7 +46,10 @@ void Board::drawBoard(){
 
 //misnomer draws horizontal lines with numbers 
 void Board::drawVerticalLines(){
-    int z = 0;
+    
+    // ok I admit using a static variable isn't great - my bad 
+    static int z = 0;
+    
     Nums * num = new Nums;
     for(int i = 1; i<13; i++){
         if(i%4 == 0){
@@ -57,8 +60,9 @@ void Board::drawVerticalLines(){
             cout<<"* "<<y[z]<<" ";
             z += 1;
             
-            if(z == 9){
+            if(z == 27){
                 updateYValues();
+                z = 0;
             }
         }
        
@@ -89,7 +93,7 @@ void Board::drawHorizontalLines(){
 void Board::updateYValues(){
     
     Nums * num = new Nums;
-    y = num->generateNumsY(y);
+    y = num->generateSuperArrY();
 }
 
 void Board::printValues(){
@@ -100,4 +104,16 @@ void Board::printValues(){
 
 }
 
+
+// used for testing
+
+void Board::printNumValues(){
+
+    Nums * num = new Nums;
+    num->generateSuperArrY();
+    for(int i = 0; i<27; i++){
+        cout<<y[i]<<" ";
+    }
+
+}
 

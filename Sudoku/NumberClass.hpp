@@ -16,13 +16,18 @@ using namespace std;
 
 class Nums {
     
+    vector<int> generateSuperArrY();
+    bool yVectorCheck(vector<int> v1, vector<int> v2, vector<int> v3, int sVal, int endVal);
+    
     vector<int> generateNumsX(vector<int> xVector);
-    vector<int> generateNumsY(vector<int> yVector);
+    vector<int> generateNumsY();
     
     int randNum();
     
     bool contains(vector<int> v, int num); 
     friend class Board;
+    
+    
     
 };
 
