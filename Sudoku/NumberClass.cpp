@@ -14,6 +14,25 @@ using namespace std;
 
 
 
+vector<int> Nums::generateSudokuPlane(){
+    
+    vector<int> sudokuV;
+    
+    vector<int> x1;
+    vector<int> x2;
+    vector<int> x3;
+    
+    x1 = generateSuperArrY();
+    x2 = generateSuperArrY();
+    x3 = generateSuperArrY();
+    
+    
+    
+    return sudokuV;
+    
+}
+
+
 vector<int> Nums::generateSuperArrY(){
     
     
@@ -22,7 +41,6 @@ vector<int> Nums::generateSuperArrY(){
     vector<int> v3 = generateNumsY();
     
     while (yVectorCheck(v1, v2, v3, 0, 3)== false || yVectorCheck(v1, v2, v3, 3, 6)== false || yVectorCheck(v1, v2, v3, 6, 9) == false){
-        v1 = generateNumsY();
         v2 = generateNumsY();
         v3 = generateNumsY();
     }
@@ -84,17 +102,19 @@ vector<int> Nums::generateNumsX(vector<int> xVector){
 
 bool Nums::yVectorCheck(vector<int> v1, vector<int> v2, vector<int> v3, int sVal, int endVal){
     
-    bool val = true;
 
     
     
     // this is necessary.
     for(int i = sVal; i<endVal; i++){
         for(int j = sVal; j< endVal; j++){
+            // if statement provides slight optimization to run time
+            if(v1[i]==v2[j]){
+                return false;
+            }
             for(int z = sVal; z< endVal; z++){
                 if(v1[i]== v2[j] || v1[i] == v3[z] || v2[j] == v3[z]){
-                    val = false;
-                    return val;
+                    return false;
                 }
             }
         }

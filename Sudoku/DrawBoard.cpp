@@ -96,13 +96,7 @@ void Board::updateYValues(){
     y = num->generateSuperArrY();
 }
 
-void Board::printValues(){
-    for(int i = 0; i<x.size(); i++){
-        cout<<x[i]<<" ";
-    }
 
-
-}
 
 
 // used for testing
@@ -114,6 +108,13 @@ void Board::printNumValues(){
     for(int i = 0; i<27; i++){
         cout<<y[i]<<" ";
     }
+}
 
+
+void Board::printValues(){
+    for(int i = 0; i<x.size(); i++){
+        cout<<x[i]<<" ";
+    }
+    
 }
 

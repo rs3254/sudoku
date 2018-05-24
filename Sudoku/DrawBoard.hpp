@@ -27,11 +27,12 @@ class Board{
         void drawBoard();
         void drawVerticalLines();
         void drawHorizontalLines();
-        void printValues();
         void updateYValues();
     
         // used for testing 
         void printNumValues();
+        void printValues();
+
     
 };
 
