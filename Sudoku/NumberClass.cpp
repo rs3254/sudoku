@@ -63,66 +63,58 @@ vector<int> Nums::generateSuperArrY(){
     
 }
 
+vector<int> Nums::generateForbiddenNums(int sVal, int endVal, vector<int>v1, vector<int>v2){
+    
+    vector<int> forbiddenNums;
+    
+    for(int i= sVal; i<endVal; i++){
+        forbiddenNums.push_back(v1[i]);
+        forbiddenNums.push_back(v2[i]);
+    }
+    
+    return forbiddenNums; 
+    
+}
+
 
 vector<int> Nums::generateNumYThirdLine(vector<int> v1, vector<int> v2){
     
     vector<int> v3;
     vector<int> forbiddenNums;
     
-    for(int i =0; i<3; i++){
-        forbiddenNums.push_back(v1[i]);
-        forbiddenNums.push_back(v2[i]);
-
-    }
+    
+    forbiddenNums = generateForbiddenNums(0, 3, v1, v2);
+    v3 = thirdLineHelper(forbiddenNums, v3);
+    
+    
+    forbiddenNums = generateForbiddenNums(3, 6, v1, v2);
+    v3 = thirdLineHelper(forbiddenNums, v3);
+    
+    
+    forbiddenNums = generateForbiddenNums(6, 9, v1, v2);
+    v3 = thirdLineHelper(forbiddenNums, v3);
     
 
-    
-    for(int i = 1; i<10; i++){
-        if(contains(forbiddenNums, i)== false){
-            v3.push_back(i);
-        }
-        
-    }
-    
-    forbiddenNums.clear();
-    for(int i =3; i<6; i++){
-        forbiddenNums.push_back(v1[i]);
-        forbiddenNums.push_back(v2[i]);
-
-    }
-    
-    
-    for(int i = 1; i<10; i++){
-        if(contains(forbiddenNums, i)== false){
-            v3.push_back(i);
-        }
-        
-    }
-    
-    
-    forbiddenNums.clear();
-    
-    for(int i =6; i<9; i++){
-        forbiddenNums.push_back(v1[i]);
-        forbiddenNums.push_back(v2[i]);
-
-    }
-    
-
-    
-    
-    
-    for(int i = 1; i<10; i++){
-        if(contains(forbiddenNums, i)== false){
-            v3.push_back(i);
-        }
-        
-    }
 
     return v3;
 }
 
 
+vector<int> Nums::thirdLineHelper(vector<int> forbiddenNums,  vector<int>  v3){
+
+
+    for(int i=1; i<10; i++){
+        if(contains(forbiddenNums, i)== false){
+            v3.push_back(int(i));
+        }
+    }
+    forbiddenNums.clear();
+    
+    return v3;
+
+}
+
+// try to optimize this ? 
 vector<int> Nums::generateNumsY(){
 //    srand(int(time(0)));
     vector<int> newV;
@@ -152,8 +144,6 @@ vector<int> Nums::generateNumsY(){
 
 
 
-
-
 // helper functions
 
 bool Nums::yVectorCheckMinor(vector<int> v1, vector<int> v2, int sVal, int endVal){
@@ -171,48 +161,24 @@ bool Nums::yVectorCheckMinor(vector<int> v1, vector<int> v2, int sVal, int endVa
 
 bool Nums::checkPairOfBlocks(vector<int> v1, vector<int> v2){
     
-    for(int i = 0; i<9; i++){
-        for(int j=i; j<v1.size(); j+=9){
-            if(v1[j] == v2[j]){
-                return false;
-            }
     
+    for(int j = 0; j<9; j++){
+        if(v1[j] == v2[j] || v1[j] == v2[j+9] || v1[j] == v2[j+18]){
+            return false;
+        }
+        if(v1[j+9] == v2[j] || v1[j+9] == v2[j+9] || v1[j+9] == v2[j+18]){
+            return false;
+        }
         
-            if((j+9 < 27) && v1[j] == v2[j+9]){
-                return false;
-            }
-
-            if((j+18 < 27) && v1[j] == v2[j+18]){
-                return false;
-            }
-          
-
+        if(v1[j+18] == v2[j] || v1[j+18] == v2[j+9] || v1[j+18] == v2[j+18]){
+            return false;
         }
-
+        
     }
     
     return true;
 }
 
-
-bool Nums::yVectorCheck(vector<int> v1, vector<int> v2, vector<int> v3, int sVal, int endVal){
-    
-    // this is necessary.
-    for(int i = sVal; i<endVal; i++){
-        for(int j = sVal; j< endVal; j++){
-            // if statement provides slight optimization to run time
-            if(v1[i]==v2[j]){
-                return false;
-            }
-            for(int z = sVal; z< endVal; z++){
-                if(v1[i]== v2[j] || v1[i] == v3[z] || v2[j] == v3[z]){
-                    return false;
-                }
-            }
-        }
-    }
-    return true;
-}
 
 
 bool Nums::contains(vector<int> v, int num){

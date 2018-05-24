@@ -24,10 +24,11 @@ class Nums {
     
     vector<int> generateNumsY();
     vector<int> generateNumYThirdLine(vector<int> v1, vector<int> v2);
+    vector<int> generateForbiddenNums(int sVal, int endVal, vector<int> v1, vector<int> v2);
+    vector<int> thirdLineHelper(vector<int> forbiddenNums, vector<int> v3);
     
     
     bool contains(vector<int> v, int num);
-    bool yVectorCheck(vector<int> v1, vector<int> v2, vector<int> v3, int sVal, int endVal);
     bool yVectorCheckMinor(vector<int> v1, vector<int> v2, int sVal, int endVal);
     bool checkPairOfBlocks(vector<int> v1, vector<int> v2);
     
