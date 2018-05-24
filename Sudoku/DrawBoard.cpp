@@ -14,15 +14,12 @@ using namespace std;
 // any space on the sudoku board can be represented as coordinate pairs, (x, y)
 Board::Board() {
     
-    // x coordinates
-    x = {1, 2,3,4,5,6,7,8,9};
-    // y coordinates
-    y = {1, 2,3,4,5,6,7,8,9};
-    
-    Nums * num = new Nums;
 
-    x = num->generateNumsX(x);
-    y = num->generateSuperArrY();
+    // plane of sudoku numbers
+    sudokuPlane = {};
+    Nums * num = new Nums;
+    sudokuPlane = num->generateSudokuPlane();
+    
 }
 
 void Board::drawBoard(){
@@ -47,7 +44,7 @@ void Board::drawBoard(){
 //misnomer draws horizontal lines with numbers 
 void Board::drawVerticalLines(){
     
-    // ok I admit using a static variable isn't great - my bad 
+    // ok I admit using a static variable isn't great - my bad
     static int z = 0;
     
     Nums * num = new Nums;
@@ -57,13 +54,9 @@ void Board::drawVerticalLines(){
         }
         else{
            
-            cout<<"* "<<y[z]<<" ";
+            cout<<"* "<<sudokuPlane[z]<<" ";
             z += 1;
             
-            if(z == 27){
-                updateYValues();
-                z = 0;
-            }
         }
        
     }
@@ -90,11 +83,6 @@ void Board::drawHorizontalLines(){
 }
 
 
-void Board::updateYValues(){
-    
-    Nums * num = new Nums;
-    y = num->generateSuperArrY();
-}
 
 
 
@@ -106,15 +94,10 @@ void Board::printNumValues(){
     Nums * num = new Nums;
     num->generateSuperArrY();
     for(int i = 0; i<27; i++){
-        cout<<y[i]<<" ";
+        cout<<sudokuPlane[i]<<" ";
     }
 }
 
 
-void Board::printValues(){
-    for(int i = 0; i<x.size(); i++){
-        cout<<x[i]<<" ";
-    }
-    
-}
+
 

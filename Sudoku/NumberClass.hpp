@@ -22,11 +22,14 @@ class Nums {
     // will contain all sudoku numbers when finished
     vector<int> generateSudokuPlane(); 
     
-    vector<int> generateNumsX(vector<int> xVector);
     vector<int> generateNumsY();
+    vector<int> generateNumYThirdLine(vector<int> v1, vector<int> v2);
+    
     
     bool contains(vector<int> v, int num);
     bool yVectorCheck(vector<int> v1, vector<int> v2, vector<int> v3, int sVal, int endVal);
+    bool yVectorCheckMinor(vector<int> v1, vector<int> v2, int sVal, int endVal);
+    bool checkPairOfBlocks(vector<int> v1, vector<int> v2);
     
     friend class Board;
     int randNum();

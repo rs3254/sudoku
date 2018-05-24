@@ -19,19 +19,15 @@ class Board{
     
     public:
     
-        vector <int> x;
-        vector <int> y;
+        vector <int> sudokuPlane;
     
         Board();
-    
         void drawBoard();
         void drawVerticalLines();
         void drawHorizontalLines();
-        void updateYValues();
     
         // used for testing 
         void printNumValues();
-        void printValues();
 
     
 };

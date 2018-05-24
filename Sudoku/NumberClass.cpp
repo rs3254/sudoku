@@ -18,17 +18,27 @@ vector<int> Nums::generateSudokuPlane(){
     
     vector<int> sudokuV;
     
-    vector<int> x1;
-    vector<int> x2;
-    vector<int> x3;
+    //blocks contain 3 correct sudoku rows -> also known as superArrY'.
+    vector<int> block1;
+    vector<int> block2;
+    vector<int> block3;
     
-    x1 = generateSuperArrY();
-    x2 = generateSuperArrY();
-    x3 = generateSuperArrY();
+    block1 = generateSuperArrY();
+    block2 = generateSuperArrY();
+    block3 = generateSuperArrY();
     
     
     
-    return sudokuV;
+    while(checkPairOfBlocks(block1, block2)== false){
+        block2 = generateSuperArrY();
+
+    }
+    
+    block1.insert(block1.end(), block2.begin(), block2.end());
+    block1.insert(block1.end(), block3.begin(), block3.end());
+    
+    
+    return block1;
     
 }
 
@@ -38,24 +48,78 @@ vector<int> Nums::generateSuperArrY(){
     
     vector<int> v1 = generateNumsY();
     vector<int> v2 = generateNumsY();
-    vector<int> v3 = generateNumsY();
-    
-    while (yVectorCheck(v1, v2, v3, 0, 3)== false || yVectorCheck(v1, v2, v3, 3, 6)== false || yVectorCheck(v1, v2, v3, 6, 9) == false){
-        v2 = generateNumsY();
-        v3 = generateNumsY();
-    }
 
-        
-        
-        
+    while(yVectorCheckMinor(v1, v2, 0, 3)== false || yVectorCheckMinor(v1, v2, 3, 6)== false || yVectorCheckMinor(v1, v2, 6, 9)== false){
+        v2 = generateNumsY();
+
+    }
+    
+    vector<int> v3 = generateNumYThirdLine(v1, v2);
+
     v1.insert(v1.end(), v2.begin(),v2.end());
     v1.insert(v1.end(), v3.begin(), v3.end());
     
-//    for(int i = 0; i<27; i++){
-//        cout<<v1[i]<<" "; 
-//    }
     return v1;
     
+}
+
+
+vector<int> Nums::generateNumYThirdLine(vector<int> v1, vector<int> v2){
+    
+    vector<int> v3;
+    vector<int> forbiddenNums;
+    
+    for(int i =0; i<3; i++){
+        forbiddenNums.push_back(v1[i]);
+        forbiddenNums.push_back(v2[i]);
+
+    }
+    
+
+    
+    for(int i = 1; i<10; i++){
+        if(contains(forbiddenNums, i)== false){
+            v3.push_back(i);
+        }
+        
+    }
+    
+    forbiddenNums.clear();
+    for(int i =3; i<6; i++){
+        forbiddenNums.push_back(v1[i]);
+        forbiddenNums.push_back(v2[i]);
+
+    }
+    
+    
+    for(int i = 1; i<10; i++){
+        if(contains(forbiddenNums, i)== false){
+            v3.push_back(i);
+        }
+        
+    }
+    
+    
+    forbiddenNums.clear();
+    
+    for(int i =6; i<9; i++){
+        forbiddenNums.push_back(v1[i]);
+        forbiddenNums.push_back(v2[i]);
+
+    }
+    
+
+    
+    
+    
+    for(int i = 1; i<10; i++){
+        if(contains(forbiddenNums, i)== false){
+            v3.push_back(i);
+        }
+        
+    }
+
+    return v3;
 }
 
 
@@ -84,26 +148,54 @@ vector<int> Nums::generateNumsY(){
     return newV;
 }
 
-vector<int> Nums::generateNumsX(vector<int> xVector){
-    
-    for(int j = 0; j<xVector.size(); j++){
-        int randNum = (rand() % 9) + 1;
-        xVector[j] = randNum;
-    }
-    
-    return xVector;
-    
-}
+
+
+
 
 
 
 // helper functions
 
+bool Nums::yVectorCheckMinor(vector<int> v1, vector<int> v2, int sVal, int endVal){
+    
+    for(int i =sVal; i<endVal;i++){
+        for(int j = sVal; j<endVal; j++){
+            if(v1[i]==v2[j]){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+bool Nums::checkPairOfBlocks(vector<int> v1, vector<int> v2){
+    
+    for(int i = 0; i<9; i++){
+        for(int j=i; j<v1.size(); j+=9){
+            if(v1[j] == v2[j]){
+                return false;
+            }
+    
+        
+            if((j+9 < 27) && v1[j] == v2[j+9]){
+                return false;
+            }
+
+            if((j+18 < 27) && v1[j] == v2[j+18]){
+                return false;
+            }
+          
+
+        }
+
+    }
+    
+    return true;
+}
+
 
 bool Nums::yVectorCheck(vector<int> v1, vector<int> v2, vector<int> v3, int sVal, int endVal){
-    
-
-    
     
     // this is necessary.
     for(int i = sVal; i<endVal; i++){
