@@ -12,6 +12,8 @@
 
 using namespace std;
 
+
+
 int main(int argc, const char * argv[]) {
 
     srand(int(time(0)));
@@ -20,17 +22,16 @@ int main(int argc, const char * argv[]) {
     cout<<"Below is the sudoku puzzle\n"<<endl;
     Board *boardObj = new Board;
     boardObj->drawBoard();
-    
+
     cout<<""<<endl;
+
+    delete boardObj;
     
-//    for(int i = 0; i<boardObj->y.size(); i++){
-//        cout<<boardObj->y[i]<<" ";
+//    
+//    vector<int> arr = shuffle();
+//    for(int i =0; i<9; i++){
+//        cout<<arr[i]<<endl;
 //    }
-    
-    
-    cout<<"\n"<<endl;
-    
-    
-    
+//
     return 0;
 }

@@ -11,13 +11,14 @@
 
 #include <stdio.h>
 #include <vector>
+#include <map>
 using namespace std;
 
 
 class Nums {
     
     // misnomer contains 3 rows of values
-    vector<int> generateSuperArrY();
+    vector<int> generateSuperArrY(int num = 0);
     
     // will contain all sudoku numbers when finished
     vector<int> generateSudokuPlane(); 
@@ -31,6 +32,10 @@ class Nums {
     bool contains(vector<int> v, int num);
     bool yVectorCheckMinor(vector<int> v1, vector<int> v2, int sVal, int endVal);
     bool checkPairOfBlocks(vector<int> v1, vector<int> v2);
+    
+    //returns dictionary of vertical array nums
+    vector<int> generateYNumsWithVerticalCheck(vector<int> v1);
+    vector<int> generateSecondSuperArr(vector<int> block1);
     
     friend class Board;
     int randNum();

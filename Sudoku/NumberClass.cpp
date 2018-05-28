@@ -24,13 +24,13 @@ vector<int> Nums::generateSudokuPlane(){
     vector<int> block3;
     
     block1 = generateSuperArrY();
-    block2 = generateSuperArrY();
+    block2 = generateSecondSuperArr(block1);
     block3 = generateSuperArrY();
     
     
     
     while(checkPairOfBlocks(block1, block2)== false){
-        block2 = generateSuperArrY();
+        block2 = generateSecondSuperArr(block1);
 
     }
     
@@ -43,11 +43,11 @@ vector<int> Nums::generateSudokuPlane(){
 }
 
 
-vector<int> Nums::generateSuperArrY(){
+vector<int> Nums::generateSuperArrY(int num){
     
     
     vector<int> v1 = generateNumsY();
-    vector<int> v2 = generateNumsY();
+    vector<int> v2 = generateNumsY(); 
 
     while(yVectorCheckMinor(v1, v2, 0, 3)== false || yVectorCheckMinor(v1, v2, 3, 6)== false || yVectorCheckMinor(v1, v2, 6, 9)== false){
         v2 = generateNumsY();
@@ -63,7 +63,62 @@ vector<int> Nums::generateSuperArrY(){
     
 }
 
-vector<int> Nums::generateForbiddenNums(int sVal, int endVal, vector<int>v1, vector<int>v2){
+
+// builds second block in a quick waw
+vector<int> Nums:: generateSecondSuperArr(vector<int> block1){
+    vector<int> v1 = generateYNumsWithVerticalCheck(block1);
+    block1.insert(block1.end(), v1.begin(), v1.end());
+    vector<int> v2 = generateYNumsWithVerticalCheck(block1);
+    
+    while(yVectorCheckMinor(v1, v2, 0, 3)== false || yVectorCheckMinor(v1, v2, 3, 6)== false || yVectorCheckMinor(v1, v2, 6, 9)== false){
+        v2 = generateYNumsWithVerticalCheck(block1);
+        
+    }
+    
+    vector<int> v3 = generateNumYThirdLine(v1, v2);
+    
+    v1.insert(v1.end(), v2.begin(),v2.end());
+    v1.insert(v1.end(), v3.begin(), v3.end());
+    
+    return v1;
+    
+}
+
+// need this to build second block otherwise takes to long
+vector<int> Nums::generateYNumsWithVerticalCheck(vector<int> v1){
+    
+    
+    vector<int> newV;
+    
+    for(int j = 0; j<9; j++){
+        vector<int> y1;
+        for(int i = j; i <v1.size(); i+= 9){
+            y1.push_back(v1[i]);
+        }
+        int randNum = (rand() % 9) + 1;
+        if(contains(newV, randNum) == false && contains(y1, randNum) == false){
+            newV.push_back(randNum);
+        }
+        else{
+            while (contains(newV, randNum)== true || contains(y1, randNum) == true){
+                randNum = (rand() % 9) + 1;
+                if(contains(newV, randNum)== false){
+                    newV.push_back(randNum);
+                    break;
+                }
+              
+            }
+        }
+    }
+    
+    return newV;
+}
+
+
+
+
+
+vector<int> Nums::generateForbiddenNums(int sVal, int endVal, vector<int>v1, vector<int> v2){
     
     vector<int> forbiddenNums;
     
@@ -72,9 +127,13 @@ vector<int> Nums::generateForbiddenNums(int sVal, int endVal, vector<int>v1, vec
         forbiddenNums.push_back(v2[i]);
     }
     
+    
     return forbiddenNums; 
     
 }
+
+
+
 
 
 vector<int> Nums::generateNumYThirdLine(vector<int> v1, vector<int> v2){
@@ -94,7 +153,6 @@ vector<int> Nums::generateNumYThirdLine(vector<int> v1, vector<int> v2){
     forbiddenNums = generateForbiddenNums(6, 9, v1, v2);
     v3 = thirdLineHelper(forbiddenNums, v3);
     
-
 
     return v3;
 }
@@ -116,10 +174,9 @@ vector<int> Nums::thirdLineHelper(vector<int> forbiddenNums,  vector<int>  v3){
 
 // try to optimize this ? 
 vector<int> Nums::generateNumsY(){
-//    srand(int(time(0)));
+
     vector<int> newV;
     
-    // because 9 elements in a sudoku row 
     for(int j = 0; j<9; j++){
         int randNum = (rand() % 9) + 1;
         if(contains(newV, randNum) == false){
@@ -134,7 +191,6 @@ vector<int> Nums::generateNumsY(){
                 }
             }
         }
-        
     }
 
     return newV;
@@ -169,7 +225,7 @@ bool Nums::checkPairOfBlocks(vector<int> v1, vector<int> v2){
         if(v1[j+9] == v2[j] || v1[j+9] == v2[j+9] || v1[j+9] == v2[j+18]){
             return false;
         }
-        
+
         if(v1[j+18] == v2[j] || v1[j+18] == v2[j+9] || v1[j+18] == v2[j+18]){
             return false;
         }

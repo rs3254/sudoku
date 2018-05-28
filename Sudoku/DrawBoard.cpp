@@ -19,6 +19,7 @@ Board::Board() {
     sudokuPlane = {};
     Nums * num = new Nums;
     sudokuPlane = num->generateSudokuPlane();
+    delete num;
     
 }
 
@@ -61,6 +62,7 @@ void Board::drawVerticalLines(){
        
     }
     cout<<"\n";
+    delete num;
 }
 
 void Board::drawHorizontalLines(){
@@ -96,6 +98,8 @@ void Board::printNumValues(){
     for(int i = 0; i<27; i++){
         cout<<sudokuPlane[i]<<" ";
     }
+    
+    delete num;
 }
 
 
