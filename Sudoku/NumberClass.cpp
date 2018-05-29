@@ -25,16 +25,20 @@ vector<int> Nums::generateSudokuPlane(){
     
     block1 = generateSuperArrY();
     block2 = generateSecondSuperArr(block1);
-    block3 = generateSuperArrY();
     
-    
-    
+
     while(checkPairOfBlocks(block1, block2)== false){
         block2 = generateSecondSuperArr(block1);
 
     }
     
     block1.insert(block1.end(), block2.begin(), block2.end());
+    
+    block3 = generateThirdSuperArr(block1);
+
+    
+    
+//    block1.insert(block1.end(), block2.begin(), block2.end());
     block1.insert(block1.end(), block3.begin(), block3.end());
     
     
@@ -62,6 +66,110 @@ vector<int> Nums::generateSuperArrY(int num){
     return v1;
     
 }
+
+vector<int> Nums::generateThirdSuperArr(vector<int> block1){
+    
+    
+    vector<int> v1 = genLastNums(block1);
+    
+    while(checkDuplicates(v1) == false){
+        v1 = genLastNums(block1);
+       
+    }
+    
+    
+    block1.insert(block1.end(), v1.begin(), v1.end());
+    
+    
+    vector<int> v2 = genLastNums(block1);
+    
+    while(checkDuplicates(v2) == false){
+        v2 = genLastNums(block1);
+        
+    }
+    
+    
+    block1.insert(block1.end(), v2.begin(), v2.end());
+    vector<int> v3 = genLastLine(block1);
+
+
+    
+    v1.insert(v1.end(), v2.begin(), v2.end());
+    v1.insert(v1.end(), v3.begin(), v3.end());
+
+    
+    return v1;
+}
+
+
+bool Nums::checkDuplicates(vector<int> v1){
+    
+    sort(v1.begin(), v1.end());
+    v1.erase(unique(v1.begin(), v1.end()), v1.end());
+    if(v1.size() <9){
+        return false;
+    }
+    else{
+        return true;
+    }
+    
+}
+
+vector<int> Nums::genLastLine(vector<int> superBlock){
+    
+    vector<int> lastLine;
+    
+    for(int i = 0; i< 9; i++){
+        vector<int> yVec;
+        for(int j = i; j<superBlock.size(); j+=9){
+            yVec.push_back(superBlock[j]);
+        }
+        for(int z = 1; z<10; z++){
+            if(contains(yVec, z) == false && contains(lastLine, z) == false){
+                lastLine.push_back(z);
+                break; 
+            }
+        }
+        
+    }
+    
+ 
+    return lastLine;
+    
+}
+
+vector<int> Nums::genLastNums(vector<int> superBlock){
+    
+    
+    vector<int> lastLine;
+    
+    for(int i = 0; i< 9; i++){
+        vector<int> yVec;
+        for(int j = i; j<superBlock.size(); j+=9){
+            yVec.push_back(superBlock[j]);
+        }
+        int z = rand()%9 + 1;
+        if(contains(yVec, z) == false && contains(lastLine, z) == false){
+                lastLine.push_back(z);
+            }
+        else{
+            while(contains(yVec, z) == true || contains(lastLine, z) == true){
+                 int z = rand()%9 + 1;
+                if(contains(yVec, z) == false){
+                    lastLine.push_back(z);
+                    break;
+                }
+            }
+        }
+
+        }
+        
+ 
+    return lastLine;
+    
+    
+}
+
 
 
 // builds second block in a quick waw

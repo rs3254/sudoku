@@ -36,6 +36,12 @@ class Nums {
     //returns dictionary of vertical array nums
     vector<int> generateYNumsWithVerticalCheck(vector<int> v1);
     vector<int> generateSecondSuperArr(vector<int> block1);
+    vector<int> generateThirdSuperArr(vector<int> block1);
+    vector<int> genLastLine(vector<int> superBlock);
+    vector<int> genLastNums(vector<int> superBlock);
+    
+    bool checkDuplicates(vector<int> v1); 
+
     
     friend class Board;
     int randNum();
