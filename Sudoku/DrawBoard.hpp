@@ -20,11 +20,16 @@ class Board{
     public:
     
         vector <int> sudokuPlane;
+        vector<int> sudokuPuzzle; 
     
         Board();
         void drawBoard();
-        void drawVerticalLines();
+        void drawSolution();
+        void drawVerticalLines(vector<int> sPlane);
+        void drawVerticalLines2(vector<int> sPlane); 
         void drawHorizontalLines();
+    
+        vector<int> hiddenNums(vector<int> sudokuPlane);
     
         // used for testing 
         void printNumValues();
