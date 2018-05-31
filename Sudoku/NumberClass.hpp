@@ -18,7 +18,7 @@ using namespace std;
 class Nums {
     
     // misnomer contains 3 rows of values
-    vector<int> generateSuperArrY(int num = 0);
+    vector<int> generateSuperArrY(vector<int> block1 = {});
     
     // will contain all sudoku numbers when finished
     vector<int> generateSudokuPlane(); 
@@ -37,6 +37,8 @@ class Nums {
     vector<int> generateThirdSuperArr(vector<int> block1);
     vector<int> genLastLine(vector<int> superBlock);
     vector<int> genLastNums(vector<int> superBlock);
+    
+    vector<int> merge(vector<int> v1, vector<int> v2, vector<int>v3); 
     
     bool checkDuplicates(vector<int> v1); 
 

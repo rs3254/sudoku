@@ -35,21 +35,51 @@ vector<int> Nums::generateSudokuPlane(){
     block1.insert(block1.end(), block2.begin(), block2.end());
     
     block3 = generateThirdSuperArr(block1);
-
     
-    
-//    block1.insert(block1.end(), block2.begin(), block2.end());
     block1.insert(block1.end(), block3.begin(), block3.end());
     
     
     return block1;
     
+    
+    
 }
 
+// used to build sudoku block1 or block2. A sudoku block is synonymous with "SuperArrY"
+// this is the same as #1 and #1 below.
 
-vector<int> Nums::generateSuperArrY(int num){
-    
-    
+//vector<int> Nums::generateSuperArrY(vector<int> block1){
+//    vector<int> v1, v2;
+//    if(block1.empty()){
+//        v1 = generateRows();
+//        v2 = generateRows();
+//
+//        while(checkRows(v1, v2, 0, 3)== false || checkRows(v1, v2, 3, 6)== false || checkRows(v1, v2, 6, 9)== false){
+//            v2 = generateRows();
+//        }
+//    }
+//    if(block1.empty() == false){
+//        v1 = generateRows(block1);
+//        block1.insert(block1.end(), v1.begin(), v1.end());
+//        v2 = generateRows(block1);
+//
+//        while(checkRows(v1, v2, 0, 3)== false || checkRows(v1, v2, 3, 6)== false || checkRows(v1, v2, 6, 9)== false){
+//            v2 = generateRows(block1);
+//
+//        }
+//    }
+//
+//
+//    vector<int> v3 = generateThirdRow(v1, v2);
+//    return merge(v1,v2, v3);
+//
+//}
+
+
+
+//#1
+vector<int> Nums::generateSuperArrY(vector<int> block1){
+
     vector<int> v1 = generateRows();
     vector<int> v2 = generateRows();
 
@@ -57,15 +87,33 @@ vector<int> Nums::generateSuperArrY(int num){
         v2 = generateRows();
 
     }
-    
+
+    vector<int> v3 = generateThirdRow(v1, v2);
+    return merge(v1,v2, v3);
+
+}
+
+
+//#2
+vector<int> Nums:: generateSecondSuperArr(vector<int> block1){
+    vector<int> v1 = generateRows(block1);
+    block1.insert(block1.end(), v1.begin(), v1.end());
+    vector<int> v2 = generateRows(block1);
+
+    while(checkRows(v1, v2, 0, 3)== false || checkRows(v1, v2, 3, 6)== false || checkRows(v1, v2, 6, 9)== false){
+        v2 = generateRows(block1);
+
+    }
+
     vector<int> v3 = generateThirdRow(v1, v2);
 
-    v1.insert(v1.end(), v2.begin(),v2.end());
-    v1.insert(v1.end(), v3.begin(), v3.end());
-    
-    return v1;
-    
+    return merge(v1, v2, v3);
 }
+
+
+
+
+
 
 //generate third "superArr" differently for saving time
 vector<int> Nums::generateThirdSuperArr(vector<int> block1){
@@ -78,10 +126,8 @@ vector<int> Nums::generateThirdSuperArr(vector<int> block1){
        
     }
     
-    
     block1.insert(block1.end(), v1.begin(), v1.end());
-    
-    
+
     vector<int> v2 = genLastNums(block1);
     
     while(checkDuplicates(v2) == false){
@@ -92,15 +138,19 @@ vector<int> Nums::generateThirdSuperArr(vector<int> block1){
     
     block1.insert(block1.end(), v2.begin(), v2.end());
     vector<int> v3 = genLastLine(block1);
+    return merge(v1, v2, v3);
+    
+}
 
 
+vector<int> Nums::merge(vector<int> v1, vector<int> v2, vector<int> v3){
     
     v1.insert(v1.end(), v2.begin(), v2.end());
     v1.insert(v1.end(), v3.begin(), v3.end());
-
-    
     return v1;
+    
 }
+
 
 
 bool Nums::checkDuplicates(vector<int> v1){
@@ -172,27 +222,6 @@ vector<int> Nums::genLastNums(vector<int> superBlock){
     
 }
 
-
-
-// builds second block, "superArr",  in a quick way
-vector<int> Nums:: generateSecondSuperArr(vector<int> block1){
-    vector<int> v1 = generateRows(block1);
-    block1.insert(block1.end(), v1.begin(), v1.end());
-    vector<int> v2 = generateRows(block1);
-    
-    while(checkRows(v1, v2, 0, 3)== false || checkRows(v1, v2, 3, 6)== false || checkRows(v1, v2, 6, 9)== false){
-        v2 = generateRows(block1);
-        
-    }
-    
-    vector<int> v3 = generateThirdRow(v1, v2);
-    
-    v1.insert(v1.end(), v2.begin(),v2.end());
-    v1.insert(v1.end(), v3.begin(), v3.end());
-    
-    return v1;
-    
-}
 
 // ugly but has optimizations that save time
 vector<int> Nums::generateRows(vector<int> v1){

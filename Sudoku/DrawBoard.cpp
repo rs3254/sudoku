@@ -48,7 +48,6 @@ void Board::drawVerticalLines(){
     // ok I admit using a static variable isn't great - my bad
     static int z = 0;
     
-    Nums * num = new Nums;
     for(int i = 1; i<13; i++){
         if(i%4 == 0){
             cout<<"*  ";
@@ -62,7 +61,6 @@ void Board::drawVerticalLines(){
        
     }
     cout<<"\n";
-    delete num;
 }
 
 void Board::drawHorizontalLines(){
@@ -93,13 +91,10 @@ void Board::drawHorizontalLines(){
 
 void Board::printNumValues(){
 
-    Nums * num = new Nums;
-    num->generateSuperArrY();
     for(int i = 0; i<27; i++){
         cout<<sudokuPlane[i]<<" ";
     }
     
-    delete num;
 }
 
 
