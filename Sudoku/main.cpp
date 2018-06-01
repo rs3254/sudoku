@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
         cout<<" "<<endl;
         cout<<" "<<endl;
         cout<<"solution below"<<endl;
-        boardObj->drawSolution();
+        boardObj->drawBoard(1);
 
 
     }

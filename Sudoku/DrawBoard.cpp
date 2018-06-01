@@ -23,8 +23,16 @@ Board::Board() {
     
 }
 
-void Board::drawBoard(){
+void Board::drawBoard(int num){
     int j = 3;
+    int z = 0;
+    vector<int> v1;
+    if(num != 1){
+         v1 = sudokuPuzzle;
+    }
+    else{
+        v1 = sudokuPlane;
+    }
     for(int i = 0; i <12; i++){
         if(j%12 == 0 && j != 0){
             drawHorizontalLines();
@@ -32,89 +40,36 @@ void Board::drawBoard(){
         }
         else{
             drawHorizontalLines();
-            drawVerticalLines(sudokuPuzzle);
+            drawLinesWithNums(v1, z);
+            z += 9;
             
         }
-
-
         j += 3;
     }
-    
-}
-
-void Board::drawSolution(){
-    int j = 3;
-    for(int i = 0; i <12; i++){
-        if(j%12 == 0 && j != 0){
-            drawHorizontalLines();
-            cout<<"\n";
-        }
-        else{
-            drawHorizontalLines();
-            drawVerticalLines2(sudokuPlane);
-            
-        }
-        
-        
-        j += 3;
-    }
-    
 }
 
 
-//misnomer draws horizontal lines with numbers 
-void Board::drawVerticalLines(vector<int> sPlane){
+
+void Board::drawLinesWithNums(vector<int> sPlane, int count){
     
-    // ok I admit using a static variable isn't great - my bad
-    static int z = 0;
     
     for(int i = 1; i<13; i++){
         if(i%4 == 0){
             cout<<"*  ";
         }
         else{
-            if(sPlane[z] != 0){
-                cout<<"* "<<sPlane[z]<<" ";
-
-            }else{
-                cout<<"* "<<" "<<" ";
-            }
-            z += 1;
-            
-        }
-       
-    }
-    cout<<"\n";
-}
-
-
-
-// for drawing solutions
-void Board::drawVerticalLines2(vector<int> sPlane){
-    
-    // ok I admit using a static variable isn't great - my bad
-    static int z = 0;
-    
-    for(int i = 1; i<13; i++){
-        if(i%4 == 0){
-            cout<<"*  ";
-        }
-        else{
-            if(sPlane[z] != 0){
-                cout<<"* "<<sPlane[z]<<" ";
+            if(sPlane[count] != 0){
+                cout<<"* "<<sPlane[count]<<" ";
                 
             }else{
                 cout<<"* "<<" "<<" ";
             }
-            z += 1;
-            
+            count += 1;
         }
-        
     }
     cout<<"\n";
-    
-    
 }
+
 
 
 
@@ -125,7 +80,6 @@ void Board::drawHorizontalLines(){
     
         if(j%14 == 0){
             cout<<"  ";
-    
         }
         else{
             cout<<"*";
@@ -147,7 +101,6 @@ vector<int> Board::hiddenNums(vector<int> sudokuPlane){
         v1[randNums] = 0;
     }
     
-
     return v1;
 }
 
