@@ -19,8 +19,10 @@ int main(int argc, const char * argv[]) {
     srand(int(time(0)));
 
     int finished;
+        
     
-    cout<<"Below is the sudoku puzzle. Press 1 when finished to display solutions.\n"<<endl;
+    cout<<"Below is the sudoku puzzle. Solve it an another piece of paper. Press 1 when finished to display solutions.\n"<<endl;
+    
     Board *boardObj = new Board;
     boardObj->drawBoard();
     cout<<""<<endl;
