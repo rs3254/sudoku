@@ -43,6 +43,8 @@ class Nums {
     bool checkDuplicates(vector<int> v1); 
 
     
+    vector<int> genRowsFast(vector<int> v1 = {}); 
+    
     friend class Board;
     int randNum();
     

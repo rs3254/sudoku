@@ -26,11 +26,18 @@ vector<int> Nums::generateSudokuPlane(){
     block1 = generateSuperArrY();
     block2 = generateSecondSuperArr(block1);
     
-
+    int count = 0;
+    int totalCount  = 0;
     while(checkPairOfBlocks(block1, block2)== false){
         block2 = generateSecondSuperArr(block1);
-
+        count += 1;
+        totalCount += 1;
+        if(count > 10000){
+            count = 0;
+            block1 = generateSuperArrY();
+        }
     }
+//    cout<<totalCount<<endl;
     
     block1.insert(block1.end(), block2.begin(), block2.end());
     
@@ -102,6 +109,7 @@ vector<int> Nums:: generateSecondSuperArr(vector<int> block1){
 
     while(checkRows(v1, v2, 0, 3)== false || checkRows(v1, v2, 3, 6)== false || checkRows(v1, v2, 6, 9)== false){
         v2 = generateRows(block1);
+//        v2 = genRowsFast();
 
     }
 
@@ -258,7 +266,19 @@ vector<int> Nums::generateRows(vector<int> v1){
 }
 
 
-
+vector <int> Nums::genRowsFast(vector<int> v1){
+    vector<int> returnV;
+    
+    int genNum = rand()%9 + 1;
+    for(int i =0; i< 9; i++){
+        while (contains(returnV, genNum)){
+            genNum = rand()%9 + 1;
+        }
+        returnV.push_back(genNum);
+    }
+    
+    return returnV;
+}
 
 
 vector<int> Nums::generateForbiddenNums(int sVal, int endVal, vector<int>v1, vector<int> v2){

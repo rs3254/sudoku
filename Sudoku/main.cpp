@@ -29,7 +29,6 @@ int main(int argc, const char * argv[]) {
     sudokuFile.open("Sudoku.txt",fstream::out);
     solutionFile.open("Solutions.txt",fstream::out);
     
-    
     cout<<"Generating Puzzle.\n"<<endl;
     Board *boardObj = new Board;
     streambuf *backup;
